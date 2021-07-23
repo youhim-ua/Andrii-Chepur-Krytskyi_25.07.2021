@@ -5,6 +5,7 @@ import {
 import navBarTemplate from '../templates/navBar.hbs';
 import movieCardGridTemplate from '../templates/galleryGridStyle.hbs';
 import movieCardListTemplate from '../templates/galleryListStyle.hbs';
+import favoriteSectionTemplate from '../templates/favoriteSection.hbs';
 import favoriteListTemplate from '../templates/favoriteList.hbs';
 import modalTemplate from '../templates/modal.hbs';
 
@@ -95,22 +96,28 @@ class Gallery {
     this.refs.mainRef.insertAdjacentHTML('beforeend', movieCardGridTemplate({ movies }));
     this.filterByGenre();
     this.viewsSwitcher(movies);
+    this.generateFavoriteSection();
     this.loadFavoriteFromLocalStorage();
     this.addActiveStars();
     this.addToFavorite();
+    this.modalToggler();
+  }
+
+  generateFavoriteSection() {
+    this.refs.mainRef.insertAdjacentHTML('afterend', favoriteSectionTemplate());
+
+    const showButtonRef = document.querySelector('.toggle-list-button');
+    const favoriteSectionRef = document.querySelector('.favorite-box');
     
-    this.modalHandler();
+    showButtonRef.addEventListener('click', () => {
+      favoriteSectionRef.classList.toggle('hidden');
+    });
   }
 
   generateFavoriteList(favorite) {
-    this.refs.mainRef.insertAdjacentHTML('afterend', favoriteListTemplate({favorite}));
+    const favoriteTitleRef = document.querySelector('.favorite-box__title');
 
-    const showButtonRef = document.querySelector('.toggle-list-button');
-    const favoriteListRef = document.querySelector('.favorite-box');
-    
-    showButtonRef.addEventListener('click', () => {
-      favoriteListRef.classList.toggle('hidden');
-    })
+    favoriteTitleRef.insertAdjacentHTML('afterend', favoriteListTemplate({favorite}));
   }
 
   addToFavorite() {
@@ -121,7 +128,7 @@ class Gallery {
       const addToFavoriteInputClass = addToFavoriteInputRef.classList.value;
 
       if (targetInputClass === addToFavoriteInputClass) {
-        const favoriteSectionRef = document.querySelector('.favorite-section');
+        const favoriteListRef = document.querySelector('.favorite-box__list');
 
         const currentMovieIndex = e.target.dataset.index;
         const result = this.allMoviesList.find(
@@ -135,14 +142,14 @@ class Gallery {
 
           this.addFavoriteToLocalStorage();
 
-          favoriteSectionRef.remove();
+          favoriteListRef.remove();
           this.generateFavoriteList(this.favoriteList);
         } else {
           this.favoriteList.push(result);
 
           this.addFavoriteToLocalStorage();
 
-          favoriteSectionRef.remove();
+          favoriteListRef.remove();
           this.generateFavoriteList(this.favoriteList);
         }
       }
@@ -228,29 +235,51 @@ class Gallery {
     })
   }
 
-  modalHandler() {
-    const listItemGridRef = document.querySelector('.movie-list__item');
-    
-    document.addEventListener('click', (e) => {
-      const targetClass = e.target;
-      // const listItemClass = listItemGridRef
-      //   ? listItemGridRef.classList.value
-      //   : listItemLinesRef.classList.value;
+  modalToggler() {
+    document.addEventListener('click', e => {
+      const buttonMoreGridRef = document.querySelector(
+        '.movie-list__button-more',
+      );
+      const buttonMoreListRef = document.querySelector(
+        '.movie-list-line__button-more',
+      );
 
-      console.log(targetClass);
-      // console.log(listItemClass);
+      const targetClass = e.target.classList.value;
+      const currentButtonClass = buttonMoreGridRef
+        ? buttonMoreGridRef.classList.value
+        : buttonMoreListRef.classList.value;
 
-      
-      //   if (targetClass === listItemClass) {
-      //     backdropRef.classList.remove('hidden');
-      //   }
-      // })
-    })
+      if (targetClass === currentButtonClass) {
+        const currentMovieID = e.target.dataset.index;
+        const movie = this.allMoviesList.find(
+          item => item.id === +currentMovieID,
+        );
+
+        this.refs.mainRef.insertAdjacentHTML('afterend', modalTemplate(movie));
+      }
+
+      this.addActiveStars();
+
+      const backdropRef = document.querySelector('.backdrop');
+      const buttonCloseRef = document.querySelector('.modal__button-delete');
+
+      const deleteHandler = () => {
+        backdropRef.remove();
+      };
+
+      if (!buttonCloseRef) {
+        console.log('delete')
+        buttonCloseRef.removeEventListener('click', deleteHandler);
+        
+      } else if (buttonCloseRef) {
+        buttonCloseRef.addEventListener('click', deleteHandler);
+        console.log('add')
+      }
+    });
   }
 
   createGallery() { 
-    this.getMovieList();
-    
+    this.getMovieList(); 
   }
 }
 

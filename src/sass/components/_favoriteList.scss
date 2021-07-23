@@ -27,7 +27,7 @@
   padding: 15px;
   background-color: rgb(204, 198, 198);
   border-radius: 5px;
-  transition: all 0.4s ease-in;
+  transition: opacity 0.4s ease-in-out;
 
   &__title {
     text-align: center;
@@ -44,6 +44,7 @@
 
   &__list-item {
     display: flex;
+    height: 44px;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
@@ -59,6 +60,7 @@
 
   &__movie-name {
     display: inline-block;
+    font-size: 17px;
     width: 70%;
     padding: 2px;
   }
@@ -74,7 +76,6 @@
   &__delete-icon {
     width: 30px;
     height: 30px;
-    // fill: rgb(253, 52, 52);
 
     &:hover,
     &:focus {

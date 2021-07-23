@@ -1,8 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;700&display=swap');
+
 *,
 *::after,
 *::before {
   margin: 0;
   padding: 0;
+}
+
+body {
+  font-family: 'Barlow', sans-serif;
 }
 
 img {
@@ -23,5 +29,5 @@ img {
 .hidden {
   opacity: 0;
   pointer-events: none;
-  transition: all 0.4s ease-in;
+  transition: opacity 0.4s ease-in-out;
 }
