@@ -1,0 +1,42 @@
+<div class="backdrop hidden">
+  <div class="modal">
+    <div class="modal__img-box">
+      <div class="modal__img-tumb">
+        <img class="modal__image" src={{img}} alt={{name}} width="220" height="360">
+      </div>
+      <label class="movie-list__favorite-button" aria-label="add to favorite">
+        <input class="movie-list__favorite-checkbox" type="checkbox" data-index={{id}}>
+        <svg class="movie-list__star-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <path
+            d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.834 9.686l-4.166.575 3.032 2.914-.74 4.139 3.708-1.982 3.708 1.983-.74-4.139 3.032-2.915-4.166-.575-1.834-3.784-1.834 3.784z" />
+        </svg>
+      </label>
+      <span class="modal__year">{{year}}</span>
+      <ul class="modal__genres-list">
+        {{#each genres}}
+        <li>{{this}}</li>
+        {{/each}}
+      </ul>
+    </div>
+    <div class="modal__description-box">
+      <h2 class="modal__title">{{name}}</h2>
+      <p class="modal__about-text">{{description}}</p>
+      <p class="modal__director"><b>Director:</b> {{director}}</p>
+      <div class="modal__starring-box">
+        <span><b>Starring:</b></span>
+        <ul class="modal__starring-list">
+          {{#each starring}}
+          <li>{{this}}</li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+    <button class="modal__button-delete" aria-label="close modal">
+      <svg class="modal__delete-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path
+          d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 16.538l-4.592-4.548 4.546-4.587-1.416-1.403-4.545 4.589-4.588-4.543-1.405 1.405 4.593 4.552-4.547 4.592 1.405 1.405 4.555-4.596 4.591 4.55 1.403-1.416z" />
+      </svg>
+    </button>
+  </div>
+</div>
+

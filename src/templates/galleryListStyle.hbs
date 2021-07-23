@@ -1,0 +1,29 @@
+<ul class="movie-list-line">
+  {{#each movies}}
+  <li class="movie-list-line__item" id={{id}}>
+    <label class="movie-list__favorite-button" aria-label="add to favorite">
+      <input class="movie-list__favorite-checkbox" type="checkbox" data-index={{id}}>
+      <svg class="movie-list__star-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path
+          d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.834 9.686l-4.166.575 3.032 2.914-.74 4.139 3.708-1.982 3.708 1.983-.74-4.139 3.032-2.915-4.166-.575-1.834-3.784-1.834 3.784z" />
+      </svg>
+    </label>
+    <div class="movie-list-line__image-box">
+      <img class="movie-list-line__image" src={{img}} alt={{name}} width="220" height="360">
+    </div>
+    <div class="movie-list-line__about-box">
+      <div>
+        <span class="movie-list-line__name">{{name}}</span>
+        <span class="movie-list-line__year">{{year}}</span>
+      </div>
+      <p class="movie-list-line__description">{{description}}</p>
+      <ul class="movie-list-line__genres">
+        {{#each genres}}
+        <li class="movie-list-line__genres-item">{{this}}</li>
+        {{/each}}
+      </ul>
+    </div>
+    <button class="movie-list-line__button-more" type="button" data-index={{id}}>more...</button>
+  </li>
+  {{/each}}
+</ul>

@@ -1,0 +1,18 @@
+<div class="gallery-nav">
+  <label class="gallery-nav__label">
+    Select genre:
+    <select class="gallery-nav__select" name="size">
+      <option value="all">all</option>
+      {{#each genresList}}
+      <option value={{this}}>{{this}}</option>
+      {{/each}}
+    </select>
+  </label>
+  <div class="gallery-nav__button-box">
+    <input class="gallery-nav__check-grid" id="view-grid" type="radio" name="view" value="grid" checked />
+    <label class="gallery-nav__label-grid" for="view-grid"></label>
+    
+    <input class="gallery-nav__check-list" id="view-list" type="radio" name="view" value="list" />
+    <label class="gallery-nav__label-list" for="view-list"></label>
+  </div>
+</div>

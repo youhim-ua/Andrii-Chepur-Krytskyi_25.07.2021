@@ -1,0 +1,25 @@
+<div class="favorite-section">
+  <button class="toggle-list-button" aria-label="show favorite list">
+    <svg class="movie-list__star-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+      <path
+        d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.834 9.686l-4.166.575 3.032 2.914-.74 4.139 3.708-1.982 3.708 1.983-.74-4.139 3.032-2.915-4.166-.575-1.834-3.784-1.834 3.784z" />
+    </svg>
+  </button>
+  <div class="favorite-box hidden"> <!--hidden-->
+    <h2 class="favorite-box__title">Favorite list</h2>
+    <ul class="favorite-box__list">
+      {{#each favorite}}
+      <li class="favorite-box__list-item">
+        <p class="favorite-box__movie-name">{{name}}</p>
+        <label class="favorite-box__button-delete" aria-label="delete from favorite">
+          <input class="movie-list__favorite-checkbox" type="checkbox" data-index={{id}}>
+          <svg class="favorite-box__delete-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path
+              d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 16.538l-4.592-4.548 4.546-4.587-1.416-1.403-4.545 4.589-4.588-4.543-1.405 1.405 4.593 4.552-4.547 4.592 1.405 1.405 4.555-4.596 4.591 4.55 1.403-1.416z" />
+          </svg>
+        </label>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</div>

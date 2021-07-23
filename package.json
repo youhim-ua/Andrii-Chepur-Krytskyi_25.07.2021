@@ -1,0 +1,45 @@
+{
+  "name": "projectx",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack serve --env development --node-env development --config ./webpack/config.js",
+    "build": "webpack --env production --node-env production --config ./webpack/config.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/preset-env": "^7.14.7",
+    "babel-loader": "^8.2.2",
+    "babel-preset-es2017": "^6.24.1",
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "css-loader": "^6.0.0",
+    "file-loader": "^6.2.0",
+    "handlebars-loader": "^1.7.1",
+    "html-loader": "^2.1.2",
+    "html-webpack-plugin": "^5.3.2",
+    "img-loader": "^4.0.0",
+    "mini-css-extract-plugin": "^2.1.0",
+    "node-sass": "^6.0.1",
+    "postcss-loader": "^6.1.1",
+    "postcss-preset-env": "^6.7.0",
+    "prettier": "2.3.2",
+    "sass-loader": "^12.1.0",
+    "style-loader": "^3.1.0",
+    "webpack": "^5.44.0",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^3.11.2",
+    "webpack-merge": "^5.8.0",
+    "webpackbar": "^5.0.0-3"
+  },
+  "dependencies": {
+    "autoprefixer": "^9.8.6",
+    "handlebars": "^4.7.7",
+    "modern-normalize": "^1.1.0"
+  }
+}
