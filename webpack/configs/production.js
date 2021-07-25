@@ -38,8 +38,8 @@ module.exports = env => ({
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './index.html',
-      title: 'projectX',
+      template: './index.hbs',
+      title: 'Movies gallery',
       minify: {
         collapseWhitespace: true,
         removeComments: true,

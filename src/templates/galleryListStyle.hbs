@@ -16,10 +16,10 @@
         <span class="movie-list-line__name">{{name}}</span>
         <span class="movie-list-line__year">{{year}}</span>
       </div>
-      <p class="movie-list-line__description">{{description}}</p>
+      <p class="movie-list-line__description">{{sliceFunc description}}</p>
       <ul class="movie-list-line__genres">
         {{#each genres}}
-        <li class="movie-list-line__genres-item">{{this}}</li>
+        <li class="movie-list-line__genres-item">{{toLowerCase this}}</li>
         {{/each}}
       </ul>
     </div>

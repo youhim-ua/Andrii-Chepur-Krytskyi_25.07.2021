@@ -14,7 +14,7 @@
       <span class="modal__year">{{year}}</span>
       <ul class="modal__genres-list">
         {{#each genres}}
-        <li>{{this}}</li>
+        <li>{{toLowerCase this}}</li>
         {{/each}}
       </ul>
     </div>

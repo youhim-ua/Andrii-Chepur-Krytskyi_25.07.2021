@@ -5,22 +5,52 @@
 }
 
 .movie-list {
-  display: flex;
   list-style: none;
-  flex-wrap: wrap;
-  margin-top: -15px;
-  margin-left: -15px;
   margin-bottom: 30px;
+
+  @media screen and (min-width: 376px) {
+    display: flex;
+    list-style: none;
+    flex-wrap: wrap;
+    margin-top: -15px;
+    margin-left: -15px;
+    margin-bottom: 30px;
+  }
 
   &__item {
     position: relative;
-    flex-basis: calc((100% - 75px) / 5);
-    margin-top: 15px;
-    margin-left: 15px;
+    height: 370px;
+    margin-bottom: 15px;
     padding: 15px;
     border: #acbaa3 1px solid;
     box-shadow: 0px 5px 8px -2px #acbaa3;
     border-radius: 5px;
+  }
+
+  @media screen and (min-width: 376px) {
+    &__item {
+      position: relative;
+      flex-basis: calc((100% - 30px) / 2);
+      margin-top: 15px;
+      margin-left: 15px;
+      margin-bottom: 0;
+      padding: 15px;
+      border: #acbaa3 1px solid;
+      box-shadow: 0px 5px 8px -2px #acbaa3;
+      border-radius: 5px;
+    }
+  }
+
+  @media screen and (min-width: 769px) {
+    &__item {
+      flex-basis: calc((100% - 45px) / 3);
+    }
+  }
+
+  @media screen and (min-width: 1025px) {
+    &__item {
+      flex-basis: calc((100% - 75px) / 5);
+    }
   }
 
   &__favorite-button {
@@ -164,13 +194,21 @@
 
   &__genres {
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
     list-style: none;
     margin-top: 20px;
   }
 
-  &__genres-item:not(:first-child) {
-    margin-left: 15px;
+  @media screen and (min-width: 425px) {
+    &__genres-item:not(:first-child) {
+      margin-left: 5px;
+    }
+  }
+
+  @media screen and (min-width: 769px) {
+    &__genres-item:not(:first-child) {
+      margin-left: 15px;
+    }
   }
 
   &__genres-item {
@@ -197,6 +235,11 @@
     &:hover,
     &:focus {
       background-color: #127df6;
+    }
+
+    @media screen and (max-width: 768px) {
+      bottom: 15px;
+      left: 15px;
     }
   }
 }

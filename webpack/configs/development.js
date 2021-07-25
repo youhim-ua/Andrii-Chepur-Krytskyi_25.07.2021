@@ -20,8 +20,8 @@ module.exports = env => ({
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'projectX',
-      template: './index.html',
+      title: 'Movies gallery',
+      template: './index.hbs',
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],

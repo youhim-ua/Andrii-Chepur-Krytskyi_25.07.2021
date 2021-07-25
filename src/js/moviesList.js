@@ -1,7 +1,4 @@
-import {
-  getAllMovies,
-  getOneMovie
-} from './services/moviesAPI';
+import { getAllMovies } from './services/moviesAPI';
 import navBarTemplate from '../templates/navBar.hbs';
 import movieCardGridTemplate from '../templates/galleryGridStyle.hbs';
 import movieCardListTemplate from '../templates/galleryListStyle.hbs';
@@ -204,8 +201,6 @@ class Gallery {
     const gridButtonRef = document.querySelector('.gallery-nav__check-grid');
     const listButtonRef = document.querySelector('.gallery-nav__check-list');
 
-    
-
     gridButtonRef.addEventListener('click', () => {
       if (this.currentGenre) {
         movies = this.sortedMoviesByCurrentGenre(this.currentGenre);
@@ -265,15 +260,11 @@ class Gallery {
 
       const deleteHandler = () => {
         backdropRef.remove();
+        buttonCloseRef.removeEventListener('click', deleteHandler);
       };
 
-      if (!buttonCloseRef) {
-        console.log('delete')
-        buttonCloseRef.removeEventListener('click', deleteHandler);
-        
-      } else if (buttonCloseRef) {
+      if (buttonCloseRef) {
         buttonCloseRef.addEventListener('click', deleteHandler);
-        console.log('add')
       }
     });
   }

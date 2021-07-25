@@ -24,7 +24,15 @@ module.exports = env => ({
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
-        use: ['img-loader'],
+        use: [
+          {
+            loader: 'img-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'images/',
+            },           
+          }
+        ],
       },
       // fonts & SVG
       {
@@ -60,7 +68,15 @@ module.exports = env => ({
       // Handlebars
       {
         test: /\.hbs$/,
-        use: 'handlebars-loader',
+        use: {
+          loader: 'handlebars-loader',
+          options: {
+            precompileOptions: {
+              knownHelpersOnly: false,
+            },
+            helperDirs: path.resolve(__dirname, '../../src/js/services/helper'),
+          },
+        },
       },
     ],
   },

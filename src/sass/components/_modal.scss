@@ -33,24 +33,40 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  display: flex;
-  width: 800px;
-  padding: 50px;
+  width: 300px;
+  padding: 45px 15px 15px;
   transform: translate(-50%, -50%);
   background-color: #fff;
   border-radius: 5px;
   animation: dropping 0.8s ease-in-out;
+
+  @media screen and (min-width: 426px) {
+    display: flex;
+    width: 550px;
+    padding: 20px;
+  }
+
+  @media screen and (min-width: 769px) {
+    width: 800px;
+    padding: 50px;
+  }
 
   &__img-box {
     position: relative;
   }
 
   &__img-tumb {
-    width: 240px;
-    height: 330px;
+    width: 100%;
+    height: 350px;
     margin-bottom: 15px;
     overflow: hidden;
     border-radius: 5px;
+
+    @media screen and (min-width: 426px) {
+      width: 240px;
+      height: 330px;
+      margin-bottom: 15px;
+    }
   }
 
   &__image {
@@ -71,6 +87,7 @@
     flex-wrap: wrap;
     justify-content: space-around;
     list-style: none;
+    margin-bottom: 20px;
 
     & li {
       height: 30px;
@@ -82,10 +99,20 @@
       border-radius: 5px;
       text-align: center;
     }
+
+    @media screen and (min-width: 426px) {
+      margin-bottom: 0px;
+    }
   }
 
   &__description-box {
-    margin-left: 40px;
+    @media screen and (min-width: 426px) {
+      margin-left: 20px;
+    }
+
+    @media screen and (min-width: 769px) {
+      margin-left: 40px;
+    }
   }
 
   &__title {
@@ -114,8 +141,8 @@
 
   &__button-delete {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 5px;
+    right: 5px;
     width: 33px;
     height: 33px;
     background-color: transparent;
@@ -126,6 +153,11 @@
     &:hover .modal__delete-icon,
     &:focus .modal__delete-icon {
       fill: red;
+    }
+
+    @media screen and (min-width: 426px) {
+      top: 15px;
+      right: 15px;
     }
   }
 

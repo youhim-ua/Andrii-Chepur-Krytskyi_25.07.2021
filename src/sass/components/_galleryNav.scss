@@ -28,6 +28,10 @@
 
   &__button-box {
     display: flex;
+
+    @media screen and (max-width: 425px) {
+      display: none;
+    }
   }
 
   &__button-box input {
