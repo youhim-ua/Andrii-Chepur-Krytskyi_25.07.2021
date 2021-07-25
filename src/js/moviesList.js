@@ -102,7 +102,8 @@ class Gallery {
 
   generateFavoriteSection() {
     this.refs.mainRef.insertAdjacentHTML('afterend', favoriteSectionTemplate());
-
+    this.generateFavoriteList();
+    
     const showButtonRef = document.querySelector('.toggle-list-button');
     const favoriteSectionRef = document.querySelector('.favorite-box');
     

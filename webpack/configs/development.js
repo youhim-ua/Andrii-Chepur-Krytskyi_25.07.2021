@@ -22,6 +22,7 @@ module.exports = env => ({
     new HtmlWebpackPlugin({
       title: 'Movies gallery',
       template: './index.hbs',
+      favicon: "./images/logo.png"
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],
