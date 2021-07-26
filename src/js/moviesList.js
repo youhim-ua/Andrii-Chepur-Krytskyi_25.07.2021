@@ -57,6 +57,12 @@ class Gallery {
   filterByGenre() {
     const genresSelectRef = document.querySelector('.gallery-nav__select');
 
+    let itemListRef = document.querySelectorAll(
+        '.movie-list__item',
+      );
+
+    let handler = this.modalToggler(itemListRef);
+
     genresSelectRef.addEventListener('change', (e) => {
       const moviesListGridRef = document.querySelector('.movie-list');
       const moviesListRef = document.querySelector('.movie-list-line');
@@ -64,6 +70,17 @@ class Gallery {
       this.currentGenre = e.target.value;
 
       const movies = this.sortedMoviesByCurrentGenre(e.target.value);
+
+      let itemLineListRef = document.querySelectorAll(
+        '.movie-list-line__item',
+      );
+      itemListRef = document.querySelectorAll(
+        '.movie-list__item',
+      );
+
+      let nodesList = itemLineListRef.length !== 0 ? itemLineListRef : itemListRef;
+
+      this.removeEventsToMovieCards(nodesList, handler);
 
       if (e.target.value === 'all' && moviesListRef) {
         moviesListRef.remove();
@@ -82,6 +99,20 @@ class Gallery {
         this.refs.mainRef.insertAdjacentHTML('beforeend', movieCardListTemplate({ movies }));
         this.addActiveStars();
       }
+
+      itemLineListRef = document.querySelectorAll(
+        '.movie-list-line__item',
+      );
+
+      itemListRef = document.querySelectorAll(
+        '.movie-list__item',
+      );
+
+      nodesList = itemLineListRef.length !== 0 ? itemLineListRef : itemListRef;
+
+      handler = this.modalToggler(nodesList);
+      
+      return handler;
     })
   }
 
@@ -91,13 +122,13 @@ class Gallery {
     
     this.refs.galleryTitleRef.insertAdjacentHTML('afterend', navBarTemplate({ genresList }));
     this.refs.mainRef.insertAdjacentHTML('beforeend', movieCardGridTemplate({ movies }));
-    this.filterByGenre();
-    this.viewsSwitcher(movies);
+    const handler = this.filterByGenre();
+    this.viewsSwitcher(movies, handler);
     this.generateFavoriteSection();
     this.loadFavoriteFromLocalStorage();
     this.addActiveStars();
     this.addToFavorite();
-    this.modalToggler();
+    // this.modalToggler();
   }
 
   generateFavoriteSection() {
@@ -198,9 +229,13 @@ class Gallery {
     }
   }
 
-  viewsSwitcher(movies) {
+  viewsSwitcher(movies, handler) {
     const gridButtonRef = document.querySelector('.gallery-nav__check-grid');
     const listButtonRef = document.querySelector('.gallery-nav__check-list');
+    // const itemListRef = document.querySelectorAll(
+    //     '.movie-list__item',
+    //   );
+    
 
     gridButtonRef.addEventListener('click', () => {
       if (this.currentGenre) {
@@ -211,8 +246,18 @@ class Gallery {
       const moviesListRef = document.querySelector('.movie-list-line');
       
       if (moviesListGridRef) return;
+      const itemLineListRef = document.querySelectorAll(
+        '.movie-list-line__item',
+      );
+
+      this.removeEventsToMovieCards(itemLineListRef, handler);
+
       moviesListRef.remove();
       this.refs.mainRef.insertAdjacentHTML('beforeend', movieCardGridTemplate({ movies }));
+      const itemListRef = document.querySelectorAll(
+        '.movie-list__item',
+      );
+      this.modalToggler(itemListRef);
       this.addActiveStars();
     })
 
@@ -225,48 +270,68 @@ class Gallery {
       const moviesListRef = document.querySelector('.movie-list-line');
       
       if (moviesListRef) return;
+      
+      const itemListRef = document.querySelectorAll(
+        '.movie-list__item',
+      );
+      this.removeEventsToMovieCards(itemListRef, handler);
+
       moviesListGridRef.remove();
       this.refs.mainRef.insertAdjacentHTML('beforeend', movieCardListTemplate({ movies }));
+      const itemLineListRef = document.querySelectorAll(
+        '.movie-list-line__item',
+      );
+      this.modalToggler(itemLineListRef);
       this.addActiveStars();
     })
   }
 
-  modalToggler() {
-    document.addEventListener('click', e => {
-      const buttonMoreGridRef = document.querySelector(
-        '.movie-list__button-more',
-      );
-      const buttonMoreListRef = document.querySelector(
-        '.movie-list-line__button-more',
-      );
-
-      const targetClass = e.target.classList.value;
-      const currentButtonClass = buttonMoreGridRef
-        ? buttonMoreGridRef.classList.value
-        : buttonMoreListRef.classList.value;
-
-      if (targetClass === currentButtonClass) {
-        const currentMovieID = e.target.dataset.index;
+  modalToggler(availableItems) {  
+    const openModal = (e) => {
+      const notListItem =
+        e.target.nodeName !== 'svg'
+        && e.target.nodeName !== 'INPUT'
+        && e.target.nodeName !== 'path';
+      
+      if (notListItem) {
+        const currentMovieID = e.currentTarget.id;
         const movie = this.allMoviesList.find(
           item => item.id === +currentMovieID,
         );
 
         this.refs.mainRef.insertAdjacentHTML('afterend', modalTemplate(movie));
-      }
 
-      this.addActiveStars();
+        this.addActiveStars();
 
-      const backdropRef = document.querySelector('.backdrop');
-      const buttonCloseRef = document.querySelector('.modal__button-delete');
+        const backdropRef = document.querySelector('.backdrop');
+        const buttonCloseRef = document.querySelector('.modal__button-delete');
 
-      const deleteHandler = () => {
-        backdropRef.remove();
-        buttonCloseRef.removeEventListener('click', deleteHandler);
-      };
-
-      if (buttonCloseRef) {
+        const deleteHandler = () => {
+          backdropRef.remove();
+          this.addActiveStars();
+          buttonCloseRef.removeEventListener('click', deleteHandler);
+        };
+      
         buttonCloseRef.addEventListener('click', deleteHandler);
-      }
+      }  
+    };
+
+    this.addEventsToMovieCards(availableItems, openModal);
+
+    return openModal;
+  }
+
+  addEventsToMovieCards(nodesArr, handler) {
+    Array.from(nodesArr).forEach(item => {
+      item.addEventListener('click', handler);
+      console.log('+')
+    });
+  }
+
+  removeEventsToMovieCards(nodesArr, handler) {
+    Array.from(nodesArr).forEach(item => {
+      item.removeEventListener('click', handler);
+      console.log('-')
     });
   }
 

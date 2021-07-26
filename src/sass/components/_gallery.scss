@@ -25,6 +25,7 @@
     border: #acbaa3 1px solid;
     box-shadow: 0px 5px 8px -2px #acbaa3;
     border-radius: 5px;
+    cursor: pointer;
   }
 
   @media screen and (min-width: 376px) {
@@ -71,8 +72,7 @@
   &__favorite-checkbox {
     display: none;
 
-    &:hover + .movie-list__star-icon,
-    &:focus + .movie-list__star-icon {
+    &:hover + .movie-list__star-icon {
       fill: gold;
     }
   }
@@ -136,6 +136,7 @@
     border: #acbaa3 1px solid;
     box-shadow: 0px 5px 8px -2px #acbaa3;
     border-radius: 5px;
+    cursor: pointer;
   }
 
   &__item:not(:last-child) {
@@ -155,8 +156,7 @@
     border: none;
     background-color: #fff;
 
-    &:hover > .movie-list__star-icon,
-    &:focus > .movie-list__star-icon {
+    &:hover > .movie-list__star-icon {
       fill: gold;
     }
   }
