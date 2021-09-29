@@ -1,5 +1,8 @@
 .toggle-list-button {
   position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   top: 40px;
   right: 15px;
   width: 41px;

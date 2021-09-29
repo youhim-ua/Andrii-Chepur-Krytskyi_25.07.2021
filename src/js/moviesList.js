@@ -20,7 +20,7 @@ class Gallery {
     }
   }
 
-  getMovieList() {
+  createGallery() {
     getAllMovies().then(movies => {
       this.allMoviesList = movies;
 
@@ -57,11 +57,7 @@ class Gallery {
   filterByGenre() {
     const genresSelectRef = document.querySelector('.gallery-nav__select');
 
-    let itemListRef = document.querySelectorAll(
-        '.movie-list__item',
-      );
-
-    let handler = this.modalToggler(itemListRef);
+    let handler = this.modalToggler();
 
     genresSelectRef.addEventListener('change', (e) => {
       const moviesListGridRef = document.querySelector('.movie-list');
@@ -71,16 +67,7 @@ class Gallery {
 
       const movies = this.sortedMoviesByCurrentGenre(e.target.value);
 
-      let itemLineListRef = document.querySelectorAll(
-        '.movie-list-line__item',
-      );
-      itemListRef = document.querySelectorAll(
-        '.movie-list__item',
-      );
-
-      let nodesList = itemLineListRef.length !== 0 ? itemLineListRef : itemListRef;
-
-      this.removeEventsToMovieCards(nodesList, handler);
+      this.removeEventsToMovieCards(handler);
 
       if (e.target.value === 'all' && moviesListRef) {
         moviesListRef.remove();
@@ -100,17 +87,7 @@ class Gallery {
         this.addActiveStars();
       }
 
-      itemLineListRef = document.querySelectorAll(
-        '.movie-list-line__item',
-      );
-
-      itemListRef = document.querySelectorAll(
-        '.movie-list__item',
-      );
-
-      nodesList = itemLineListRef.length !== 0 ? itemLineListRef : itemListRef;
-
-      handler = this.modalToggler(nodesList);
+      handler = this.modalToggler();
       
       return handler;
     })
@@ -128,7 +105,6 @@ class Gallery {
     this.loadFavoriteFromLocalStorage();
     this.addActiveStars();
     this.addToFavorite();
-    // this.modalToggler();
   }
 
   generateFavoriteSection() {
@@ -232,10 +208,6 @@ class Gallery {
   viewsSwitcher(movies, handler) {
     const gridButtonRef = document.querySelector('.gallery-nav__check-grid');
     const listButtonRef = document.querySelector('.gallery-nav__check-list');
-    // const itemListRef = document.querySelectorAll(
-    //     '.movie-list__item',
-    //   );
-    
 
     gridButtonRef.addEventListener('click', () => {
       if (this.currentGenre) {
@@ -246,18 +218,12 @@ class Gallery {
       const moviesListRef = document.querySelector('.movie-list-line');
       
       if (moviesListGridRef) return;
-      const itemLineListRef = document.querySelectorAll(
-        '.movie-list-line__item',
-      );
 
-      this.removeEventsToMovieCards(itemLineListRef, handler);
+      this.removeEventsToMovieCards(handler);
 
       moviesListRef.remove();
       this.refs.mainRef.insertAdjacentHTML('beforeend', movieCardGridTemplate({ movies }));
-      const itemListRef = document.querySelectorAll(
-        '.movie-list__item',
-      );
-      this.modalToggler(itemListRef);
+      this.modalToggler();
       this.addActiveStars();
     })
 
@@ -270,31 +236,26 @@ class Gallery {
       const moviesListRef = document.querySelector('.movie-list-line');
       
       if (moviesListRef) return;
-      
-      const itemListRef = document.querySelectorAll(
-        '.movie-list__item',
-      );
-      this.removeEventsToMovieCards(itemListRef, handler);
+     
+      this.removeEventsToMovieCards(handler);
 
       moviesListGridRef.remove();
       this.refs.mainRef.insertAdjacentHTML('beforeend', movieCardListTemplate({ movies }));
-      const itemLineListRef = document.querySelectorAll(
-        '.movie-list-line__item',
-      );
-      this.modalToggler(itemLineListRef);
+      this.modalToggler();
       this.addActiveStars();
     })
   }
 
-  modalToggler(availableItems) {  
+  modalToggler() {  
     const openModal = (e) => {
       const notListItem =
         e.target.nodeName !== 'svg'
         && e.target.nodeName !== 'INPUT'
         && e.target.nodeName !== 'path';
       
-      if (notListItem) {
-        const currentMovieID = e.currentTarget.id;
+      const currentMovieID = e.path.find(item => item.nodeName === 'LI')?.id;
+
+      if (notListItem && currentMovieID) {
         const movie = this.allMoviesList.find(
           item => item.id === +currentMovieID,
         );
@@ -316,30 +277,25 @@ class Gallery {
       }  
     };
 
-    this.addEventsToMovieCards(availableItems, openModal);
+    this.addEventsToMovieCards(openModal);
 
     return openModal;
   }
 
-  addEventsToMovieCards(nodesArr, handler) {
-    Array.from(nodesArr).forEach(item => {
-      item.addEventListener('click', handler);
-      console.log('+')
-    });
+  addEventsToMovieCards(handler) {
+    const listMovieRef = document.querySelector('.movie-list') ?
+      document.querySelector('.movie-list') : document.querySelector('.movie-list-line');
+    
+    listMovieRef.addEventListener('click', handler);
   }
 
-  removeEventsToMovieCards(nodesArr, handler) {
-    Array.from(nodesArr).forEach(item => {
-      item.removeEventListener('click', handler);
-      console.log('-')
-    });
-  }
-
-  createGallery() { 
-    this.getMovieList(); 
+  removeEventsToMovieCards(handler) {
+    const listMovieRef = document.querySelector('.movie-list') ?
+      document.querySelector('.movie-list') : document.querySelector('.movie-list-line');
+    
+    listMovieRef.removeEventListener('click', handler);
   }
 }
 
 const moviesGallery = new Gallery;
-
 moviesGallery.createGallery();
